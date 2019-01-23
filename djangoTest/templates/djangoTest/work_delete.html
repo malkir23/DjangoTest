@@ -1,0 +1,7 @@
+{% load staticfiles %}
+<form method="post" name="form">{% csrf_token %}
+    Are you sure you want to delete "{{ object.name }}" ?
+    <input id='submit' url='/work_delete/{{object.id}}' type="submit" value="Delete" />
+</form>
+
+<script src="{% static 'djangoTest/js/modal.js' %}"></script>

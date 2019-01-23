@@ -1,0 +1,23 @@
+#to_do li {
+    color: #004085;
+    background-color: #b8daff;
+}
+
+#in_progress li {
+    color: #856404;
+    background-color: #ffeeba;
+}
+
+#done li {
+    color: #155724;
+    background-color: #c3e6cb;
+}
+
+.list-group-item.active{
+    color: #0c5460!important;
+    background-color: #bee5eb!important;
+    border-color: #bee5eb!important;
+}
+section{
+    padding:3%;
+}

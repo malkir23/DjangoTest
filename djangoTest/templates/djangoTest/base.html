@@ -1,0 +1,95 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta name="description" content="DjangoTest">
+        <meta name="author" content="Averyanov Konstantin">
+
+
+        {% block title %}
+        <title>DjangoTest-Home</title>
+        {% endblock %}
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link href="{% static 'djangoTest/css/style.css' %}" rel='stylesheet'>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <a class="navbar-brand" href="{% url 'index' %}">DjangoTest</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarColor01">
+            {% if not user.is_authenticated and not '/accounts/login/' in request.get_full_path %}
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_signup' %}">Sign up</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" method="POST" action='{% url "account_login" %}'>{% csrf_token %}
+              <input class="form-control mr-sm-2" type="text" placeholder="Login" name="login">
+              <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password">
+              <button class="btn btn-secondary my-2 my-sm-0" type="submit">Login</button>
+            </form>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <a class="nav-link text-white" id="add_work" data-toggle="modal" href="#" data-target="#formModal">Add Work</a>
+            <form class="form-inline ml-auto" method="POST" action='{% url "account_logout" %}'>{% csrf_token %}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                <p class="text-warning my-2 my-sm-0 mr-2">{{ user.username }} </p>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
+            </form>
+            {% endif %}
+          </div>
+        </nav>
+
+        {% block content%}
+
+        {% endblock %}
+        <!-- Modal -->
+        <div class="container">
+
+          <!-- Modal -->
+          <div class="modal fade" id="formModal" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- END -->
+
+        <footer class= "fixed-bottom">
+            <hr>
+            <p>&copy; Ak 2019</p>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        {% if user.is_authenticated %}
+        <script src="{% static 'djangoTest/js/jquery.sortable.min.js' %}"></script>
+        <script src="{% static 'djangoTest/js/modal.js' %}"></script>
+        {% endif %}
+
+  </body>
+</html>

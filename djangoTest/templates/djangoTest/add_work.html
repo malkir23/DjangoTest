@@ -1,0 +1,7 @@
+{% load staticfiles %}
+<form method="POST" name="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button id='submit' url='/add_work/' type="submit">Add</button>
+</form>
+<script src="{% static 'djangoTest/js/modal.js' %}"></script>

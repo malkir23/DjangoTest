@@ -1,0 +1,62 @@
+{% extends "djangoTest/base.html" %}
+{% block content%}
+
+<section>
+    <h2 class="text-center">Sortable(Drag and Drop) List Work</h2>
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <div class="list-group-item list-group-item-action active text-center">TO DO</div>
+            <ul class="list-group list-group-sortable-connected" id="to_do">
+            {% for work in to_do %}
+                <li class="list-group-item" id="{{ work.id }}" title="{{ work.text }}">
+                    {% csrf_token %}
+                    {{ work.name }}
+                    {% if user.is_authenticated %}
+                    <div class="float-lg-right">
+                        <a class='work_update' data-toggle="modal" href="#" data-target="#formModal" nomer="{{ work.id }}">Edit</a>
+                        <a class='work_delete' data-toggle="modal" href="#" data-target="#formModal" nomer="{{ work.id }}">Delete</a>
+                    </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-sm-4 col-md-4">
+            <div class="list-group-item list-group-item-action active text-center">In progress</div>
+            <ul class="list-group list-group-sortable-connected" id="in_progress">
+            {% for work in in_progress %}
+                <li class="list-group-item" id="{{ work.id }}" title="{{ work.text }}">
+                    {% csrf_token %}
+                    {{ work.name }}
+                    {% if user.is_authenticated %}
+                    <div class="float-lg-right">
+                        <a class='work_update' data-toggle="modal" href="#" data-target="#formModal" nomer="{{ work.id }}">Edit</a>
+                        <a class='work_delete' data-toggle="modal" href="#" data-target="#formModal" nomer="{{ work.id }}">Delete</a>
+                    </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <div class="list-group-item list-group-item-action active text-center">Done</div>
+            <ul class="list-group list-group-sortable-connected" id="done">
+            {% for work in done %}
+                <li class="list-group-item" id="{{ work.id }}" title="{{ work.text }}">
+                    {% csrf_token %}
+                    {{ work.name }}
+                    {% if user.is_authenticated %}
+                    <div class="float-lg-right">
+                        <a class='work_update' data-toggle="modal" href="#" data-target="#formModal" nomer="{{ work.id }}">Edit</a>
+                        <a class='work_delete' data-toggle="modal" href="#" data-target="#formModal" nomer="{{ work.id }}">Delete</a>
+                    </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
